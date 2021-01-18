@@ -4,7 +4,7 @@ interface Conversion {
   toCoin: Coin;
   fromValue: number;
   toValue: number;
-  createdAt: Date;
+  createdAt: string;
 }
 
 interface ConversionEntry {

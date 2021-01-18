@@ -18,11 +18,16 @@ export default function ConversionHistory(props: {
           </tr>
           {props.conversions
             .sort((a, b) => {
-              return b.createdAt.getTime() - a.createdAt.getTime();
+              return (
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+              );
             })
             .map((conversion) => (
               <tr key={conversion.id}>
-                <td>{conversion.createdAt.toLocaleDateString('pt-BR')}</td>
+                <td>
+                  {new Date(conversion.createdAt).toLocaleDateString('pt-BR')}
+                </td>
                 <td>
                   {conversion.fromValue} {conversion.fromCoin}
                 </td>

@@ -1,30 +1,15 @@
-const db: {
-  conversions: Conversion[];
-} = {
-  conversions: [],
-};
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
 
 function getHistory() {
-  return new Promise((resolve: (conversions: Conversion[]) => void) => {
-    setTimeout(() => {
-      resolve(db.conversions);
-    }, 500);
-  });
+  return api.get('/conversion');
 }
 
 function create(conversion: ConversionEntry) {
-  return new Promise<Conversion>((resolve) => {
-    setTimeout(() => {
-      const conversionCreated: Conversion = {
-        ...conversion,
-        createdAt: new Date(),
-        id: new Date().getTime().toFixed(11).substring(2),
-        toValue: 1.5 * conversion.fromValue,
-      };
-      db.conversions.push(conversionCreated);
-      resolve(conversionCreated);
-    }, 500);
-  });
+  return api.post('/conversion', conversion);
 }
 
 const CoinConversionService = {

@@ -20,7 +20,7 @@ export default function ConversionPage() {
   }, [fromCoin, toCoin, fromValue]);
 
   useEffect(() => {
-    CoinConversionService.getHistory().then(setConversions);
+    CoinConversionService.getHistory().then(({ data }) => setConversions(data));
   }, []);
 
   useEffect(() => {
@@ -30,9 +30,9 @@ export default function ConversionPage() {
   function handleCreateConversion() {
     if (conversionEntry) {
       CoinConversionService.create(conversionEntry)
-        .then(setConversion)
+        .then(({ data }) => setConversion(data))
         .then(() => CoinConversionService.getHistory())
-        .then(setConversions);
+        .then(({ data }) => setConversions(data));
     }
   }
 
@@ -64,7 +64,7 @@ export default function ConversionPage() {
           </div>
           <div className="coin-conversion-button">
             <button
-              disabled={conversionEntry === null}
+              disabled={conversionEntry === null || fromCoin === toCoin}
               className="coin-conversion-btn"
               onClick={handleCreateConversion}
             >
