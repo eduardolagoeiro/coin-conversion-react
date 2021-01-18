@@ -1,5 +1,5 @@
 interface Conversion {
-  id: string;
+  _id: string;
   fromCoin: Coin;
   toCoin: Coin;
   fromValue: number;
